@@ -22,7 +22,7 @@ st.session_state.authorization_code = st.experimental_get_query_params()['code']
 ##### START OF PAGE CONTENT #####
 st.title("Welcome to Postcraft")
 
-url = f'https://api.instagram.com/oauth/authorize?client_id={INSTAGRAM_APP_ID}&redirect_uri={REDIRECT_URI}&scope="user_profile,user_media"&response_type=code&state=1'
+url = f'https://api.instagram.com/oauth/authorize?client_id={INSTAGRAM_APP_ID}&redirect_uri={REDIRECT_URI}&scope=user_profile,user_media&response_type=code&state=1'
 
 st.markdown(f"[Connect to Instagram]({url})")
 
