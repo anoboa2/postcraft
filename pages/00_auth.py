@@ -1,5 +1,9 @@
 import streamlit as st
 
+INSTAGRAM_APP_ID = st.secrets["INSTAGRAM_APP_ID"]
+INSTAGRAM_APP_SECRET = st.secrets["INSTAGRAM_APP_SECRET"]
+REDIRECT_URI = st.secrets["REDIRECT_URI"]
+
 # Initialize session state. This will be run once per session.
 if 'authorization_code' not in st.session_state:
   st.session_state.authorization_code = None
@@ -18,7 +22,9 @@ st.session_state.authorization_code = st.experimental_get_query_params()['code']
 ##### START OF PAGE CONTENT #####
 st.title("Welcome to Postcraft")
 
-st.markdown("[Connect to Instagram](https://www.instagram.com)")
+url = f'https://api.instagram.com/oauth/authorize?client_id={INSTAGRAM_APP_ID}&redirect_uri={REDIRECT_URI}&scope="user_profile,user_media"&response_type=code&state=1'
+
+st.markdown(f"[Connect to Instagram]({url})")
 
 if st.session_state.authorization_code is not None:
   with st.form("authorization_code_exchange"):
