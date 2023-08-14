@@ -1,4 +1,5 @@
 import streamlit as st
+import requests as r
 
 INSTAGRAM_APP_ID = st.secrets["INSTAGRAM_APP_ID"]
 INSTAGRAM_APP_SECRET = st.secrets["INSTAGRAM_APP_SECRET"]
@@ -12,8 +13,19 @@ if 'form_send_processing' not in st.session_state:
 
 # Declare callback functions
 def handleFormSubmit():
-  st.session_state.authorization_code = None
+  if 'authorization_code' in st.session_state:
+    st.session_state.authorization_code = None
   st.session_state.form_send_processing = True
+
+  response = r.post(
+    url = f"https://llt5p2q5qj.execute-api.us-east-1.amazonaws.com/Prod/",
+    json = {
+      "authorization_code": st.session_state.authorization_code,
+    }
+  )
+  st.session_state.short_lived_access_token = response.json()['short_lived_access_token']
+  st.session_state.short_lived_access_token_expires_in = response.json()['slat-expiration']
+  st.session_state.instagram_data = response.json()['instagram_data']
 
 # Parse query string parameters
 st.session_state.authorization_code = st.experimental_get_query_params()['code'][0] if 'code' in st.experimental_get_query_params() else None
