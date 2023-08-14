@@ -28,7 +28,7 @@ def handleFormSubmit():
   st.session_state.instagram_data = response.json()['instagram_data']
 
 # Parse query string parameters
-st.session_state.authorization_code = st.experimental_get_query_params()['code'][0] if 'code' in st.experimental_get_query_params() else None
+st.write(st.experimental_get_query_params()['code'][0] if 'code' in st.experimental_get_query_params() else '')
 
 
 ##### START OF PAGE CONTENT #####
