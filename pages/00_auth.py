@@ -18,7 +18,7 @@ def handleFormSubmit():
   response = r.post(
     url = f"https://llt5p2q5qj.execute-api.us-east-1.amazonaws.com/Prod/",
     json = {
-      "authorization_code": st.session_state.authorization_code,
+      "authorization_code": st.session_state.auth,
     }
   )
   st.session_state.short_lived_access_token = response.json()['short_lived_access_token']
@@ -42,11 +42,10 @@ st.markdown(f"[Connect to Instagram]({url})")
 
 if st.session_state.authorization_code is not None:
   with st.form("authorization_code_exchange"):
-    st.text_input("Authorization code", value=st.session_state.authorization_code, disabled=True)
+    st.text_input("Authorization code", key="auth", value=st.session_state.authorization_code, disabled=True)
     submit_button = st.form_submit_button(
       label='Complete Authorization',
       help='Exchanges the authorization code for an access token.',
       on_click=handleFormSubmit,
-      kwargs={'authorization_code': st.session_state.authorization_code},
       disabled=st.session_state.form_send_processing
     )
