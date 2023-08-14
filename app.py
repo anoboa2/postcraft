@@ -6,19 +6,22 @@ if 'short_lived_access_token' not in st.session_state:
   st.session_state.short_lived_access_token = ''
 if 'short_lived_access_token_expires_in' not in st.session_state:
   st.session_state.short_lived_access_token_expires_in = ''
+if 'ig_user_id' not in st.session_state:
+  st.session_state.ig_user_id = ''
 if 'instagram_data' not in st.session_state:
   st.session_state.instagram_data = None
 
 # Declare callback functions
 def handleGetInstagramPhotos():
-  response = r.get(
-    f"https://graph.instagram.com/me/media?fields=media_url&access_token={st.session_state.short_lived_access_token}"
+  response = r.post(
+    url = f"https://llt5p2q5qj.execute-api.us-east-1.amazonaws.com/Prod/",
+    json = {
+      "authorization_code": st.session_state.authorization_code,
+    }
   )
-  st.session_state.instagram_data = response.json()
-
-# Parse query string parameters
-st.session_state.short_lived_access_token = st.experimental_get_query_params()['slat'][0] if 'slat' in st.experimental_get_query_params() else ''
-st.session_state.short_lived_access_token_expires_in = st.experimental_get_query_params()['expiry'][0] if 'expiry' in st.experimental_get_query_params() else ''
+  st.session_state.short_lived_access_token = response.json()['short_lived_access_token']
+  st.session_state.short_lived_access_token_expires_in = response.json()['slat-expiration']
+  st.session_state.instagram_data = response.json()['instagram_data']
 
 
 ##### START OF PAGE CONTENT #####
