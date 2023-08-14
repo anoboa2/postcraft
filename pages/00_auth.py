@@ -13,8 +13,6 @@ if 'form_send_processing' not in st.session_state:
 
 # Declare callback functions
 def handleFormSubmit():
-  if 'authorization_code' in st.session_state.authorization_code != '':
-    st.session_state.authorization_code = ''
   st.session_state.form_send_processing = True
 
   response = r.post(
@@ -27,8 +25,12 @@ def handleFormSubmit():
   st.session_state.short_lived_access_token_expires_in = response.json()['slat-expiration']
   st.session_state.instagram_data = response.json()['instagram_data']
 
+  st.session_state.form_send_processing = False
+
+  st.experimental_set_query_params(code=None)
+
 # Parse query string parameters
-st.write(st.experimental_get_query_params()['code'][0] if 'code' in st.experimental_get_query_params() else '')
+st.session_state.authorization_code = st.experimental_get_query_params()['code'][0] if 'code' in st.experimental_get_query_params() else ''
 
 
 ##### START OF PAGE CONTENT #####
