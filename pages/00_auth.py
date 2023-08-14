@@ -7,14 +7,14 @@ REDIRECT_URI = st.secrets["REDIRECT_URI"]
 
 # Initialize session state. This will be run once per session.
 if 'authorization_code' not in st.session_state:
-  st.session_state.authorization_code = None
+  st.session_state.authorization_code = ''
 if 'form_send_processing' not in st.session_state:
   st.session_state.form_send_processing = False
 
 # Declare callback functions
 def handleFormSubmit():
-  if 'authorization_code' in st.session_state:
-    st.session_state.authorization_code = None
+  if 'authorization_code' in st.session_state.authorization_code != '':
+    st.session_state.authorization_code = ''
   st.session_state.form_send_processing = True
 
   response = r.post(
