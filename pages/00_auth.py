@@ -26,9 +26,7 @@ def handleFormSubmit():
     with st.echo():
       st.success("Authorization code exchanged successfully!", icon="🎉")
 
-      st.session_state.short_lived_access_token = response.json()['body']['content']['short_lived_access_token']
-      st.session_state.short_lived_access_token_expires_in = response.json()['body']['content']['slat-expiration']
-      st.session_state.instagram_data = response.json()['body']['content']['instagram_data']
+      st.write(response.json())
   else:
     st.error("Something went wrong. Please try again.", icon="😢")
 
