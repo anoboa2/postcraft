@@ -13,15 +13,7 @@ if 'instagram_data' not in st.session_state:
 
 # Declare callback functions
 def handleGetInstagramPhotos():
-  response = r.post(
-    url = f"https://llt5p2q5qj.execute-api.us-east-1.amazonaws.com/Prod/",
-    json = {
-      "authorization_code": st.session_state.authorization_code,
-    }
-  )
-  st.session_state.short_lived_access_token = response.json()['short_lived_access_token']
-  st.session_state.short_lived_access_token_expires_in = response.json()['slat-expiration']
-  st.session_state.instagram_data = response.json()['instagram_data']
+  print("do nothing")
 
 
 ##### START OF PAGE CONTENT #####
