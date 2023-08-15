@@ -22,9 +22,9 @@ def handleFormSubmit():
     }
   )
   print(response.json())
-  st.session_state.short_lived_access_token = response.json()['content']['short_lived_access_token']
-  st.session_state.short_lived_access_token_expires_in = response.json()['content']['slat-expiration']
-  st.session_state.instagram_data = response.json()['content']['instagram_data']
+  # st.session_state.short_lived_access_token = response.json()['body']['content']['short_lived_access_token']
+  # st.session_state.short_lived_access_token_expires_in = response.json()['body']['content']['slat-expiration']
+  # st.session_state.instagram_data = response.json()['body']['content']['instagram_data']
 
   st.session_state.form_send_processing = False
 
