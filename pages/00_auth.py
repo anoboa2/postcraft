@@ -31,6 +31,10 @@ def handleFormSubmit():
       st.write(payload)
       st.divider()
       st.write(payload['content'])
+      st.divider()
+      st.write(payload['content']['ig-user-id'])
+      st.write(payload['content']['short-lived-access-token'])
+      st.write(payload['content']['slat-expiration'])
   else:
     st.error("Something went wrong. Please try again.", icon="😢")
 
