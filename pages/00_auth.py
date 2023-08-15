@@ -27,16 +27,16 @@ def handleFormSubmit():
 
     payload = response.json()
 
-    with st.echo():
-      st.write(payload)
-      st.divider()
-      st.write(payload['content'])
-      st.divider()
+    try:
       st.session_state.short_lived_access_token = payload['content']['ig-user-id']
       st.session_state.short_lived_access_token_expires_in = payload['content']['short-lived-access-token']
       st.session_state.ig_user_id = payload['content']['slat-expiration']
+    except KeyError:
+      st.error("Couldn't complete authorization.  Please try again later", icon="😢")
+
+    st.success("Short-lived access token retrieved successfully!", icon="🎉")
   else:
-    st.error("Something went wrong. Please try again.", icon="😢")
+    st.error("Unable to communicate with server.  Please try again later", icon="😢")
 
   st.session_state.form_send_processing = False
 
