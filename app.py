@@ -27,6 +27,10 @@ def handleGetInstagramPhotos():
 ##### START OF PAGE CONTENT #####
 st.title("Welcome to Postcraft")
 
+st.write(st.session_state.short_lived_access_token)
+st.write(st.session_state.short_lived_access_token_expires_in)
+st.write(st.session_state.ig_user_id)
+
 if st.session_state.short_lived_access_token_expires_in != '':
   st.button(
     label="Get Instagram Photos",
