@@ -21,12 +21,16 @@ def handleFormSubmit():
       "authorization_code": st.session_state.auth,
     }
   )
-  
-  if response.ok:
-    with st.echo():
-      st.success("Authorization code exchanged successfully!", icon="🎉")
 
-      st.write(response.json())
+  if response.ok:
+    st.success("Authorization code exchanged successfully!", icon="🎉")
+
+    payload = response.json()
+
+    with st.echo():
+      st.write(payload)
+      st.divider()
+      st.write(payload['content'])
   else:
     st.error("Something went wrong. Please try again.", icon="😢")
 
